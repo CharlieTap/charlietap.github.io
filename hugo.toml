@@ -1,0 +1,32 @@
+baseurl = 'https://charlietap.github.io/'
+locale = 'en-gb'
+defaultcontentlanguage = 'en'
+title = 'charlietap'
+timezone = 'Europe/London'
+enableemoji = false
+enablegitinfo = false
+disablekinds = ['taxonomy', 'term']
+
+[params]
+description = 'notes on software, runtimes, and the things i learn while building them.'
+github = 'https://github.com/charlietap'
+
+[permalinks.page]
+posts = '/writing/:slugorcontentbasename/'
+
+[outputs]
+home = ['html', 'rss']
+section = ['html']
+
+[markup.highlight]
+style = 'github'
+tabwidth = 4
+
+[markup.goldmark.renderer]
+unsafe = false
+
+[sitemap]
+filename = 'sitemap.xml'
+
+[caches.images]
+dir = ':cacheDir/images'

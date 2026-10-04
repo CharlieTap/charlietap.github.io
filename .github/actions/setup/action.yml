@@ -1,0 +1,24 @@
+name: setup
+description: install the pinned build tools
+runs:
+  using: composite
+  steps:
+    - name: install hugo
+      shell: bash
+      run: |
+        set -euo pipefail
+        version=$(cat .hugo-version)
+        archive="$RUNNER_TEMP/hugo.tar.gz"
+        curl --fail --silent --show-error --location --retry 3 \
+          "https://github.com/gohugoio/hugo/releases/download/v${version}/hugo_${version}_linux-amd64.tar.gz" \
+          --output "$archive"
+        echo "4d84519b9f619e6d4c3fb45a50157abeabeb724f859c60605f44c23def6e1169  $archive" | sha256sum --check
+        mkdir -p "$RUNNER_TEMP/hugo-bin"
+        tar -xzf "$archive" -C "$RUNNER_TEMP/hugo-bin" hugo
+        echo "$RUNNER_TEMP/hugo-bin" >> "$GITHUB_PATH"
+    - name: install publishing tools
+      shell: bash
+      run: |
+        python3 -m venv "$RUNNER_TEMP/blog-python"
+        "$RUNNER_TEMP/blog-python/bin/python" -m pip install --disable-pip-version-check -r scripts/requirements.txt
+        echo "$RUNNER_TEMP/blog-python/bin" >> "$GITHUB_PATH"

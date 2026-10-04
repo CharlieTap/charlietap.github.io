@@ -1,0 +1,20 @@
+{{ define "main" }}
+<h1 class="sr-only">writing</h1>
+<div class="intro">{{ .Content }}</div>
+{{ $posts := where site.RegularPages "Section" "posts" }}
+{{ range $posts.GroupByDate "2006" }}
+<section class="year" aria-labelledby="year-{{ .Key }}">
+  <h2 id="year-{{ .Key }}">{{ if eq .Key "0001" }}drafts{{ else }}{{ .Key }}{{ end }}</h2>
+  <ul class="posts">
+    {{ range .Pages }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan" | lower }}</time>{{ end }}
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ else }}
+<p class="empty">nothing published yet.</p>
+{{ end }}
+{{ end }}

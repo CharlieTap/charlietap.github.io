@@ -1,0 +1,69 @@
+media:
+  input: static/uploads
+  output: /uploads
+content:
+  - name: posts
+    label: posts
+    type: collection
+    path: content/posts
+    format: yaml-frontmatter
+    subfolders: false
+    filename: '{primary}.md'
+    view:
+      primary: title
+      fields: [title, draft, date]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: title
+        type: string
+        required: true
+        pattern:
+          regex: '^[^A-Z]+$'
+          message: use lowercase for the title.
+      - name: draft
+        label: draft
+        type: boolean
+        default: true
+        description: turn off and save to publish. drafts are hidden from the site, but visible in this public repository.
+      - name: body
+        label: article
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          rename: true
+  - name: about
+    label: about
+    type: file
+    path: content/about.md
+    fields:
+      - name: title
+        type: string
+        hidden: true
+        default: about
+      - name: body
+        label: about
+        type: rich-text
+  - name: home
+    label: introduction
+    type: file
+    path: content/_index.md
+    fields:
+      - name: title
+        type: string
+        hidden: true
+        default: writing
+      - name: body
+        label: introduction
+        type: rich-text
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: 'add {path}'
+      update: 'update {path}'
+      delete: 'remove {path}'
+      rename: 'rename {oldPath} to {newPath}'

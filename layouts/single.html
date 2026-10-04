@@ -1,0 +1,10 @@
+{{ define "main" }}
+<article>
+  {{ if eq .Section "posts" }}<a class="back" href="{{ site.Home.RelPermalink }}">all writing</a>{{ end }}
+  <h1>{{ .Title }}</h1>
+  {{ if eq .Section "posts" }}
+    {{ if not .Date.IsZero }}<time class="published" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "2 January 2006" | lower }}</time>{{ end }}
+  {{ end }}
+  <div class="prose">{{ .Content }}</div>
+</article>
+{{ end }}

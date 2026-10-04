@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en-gb">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}{{ site.Title }}</title>
+    <meta name="description" content="{{ .Description | default site.Params.description }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    {{ if .Draft }}<meta name="robots" content="noindex, nofollow">{{ end }}
+    <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+    {{ with resources.Get "style.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{ end }}
+    <link rel="alternate" type="application/rss+xml" title="charlietap" href="{{ "index.xml" | absURL }}">
+    <meta property="og:title" content="{{ .Title | default site.Title }}">
+    <meta property="og:description" content="{{ .Description | default site.Params.description }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:site_name" content="charlietap">
+    <meta property="og:type" content="{{ if eq .Section "posts" }}article{{ else }}website{{ end }}">
+  </head>
+  <body>
+    <a class="skip" href="#main">skip to content</a>
+    <div class="site">
+      <header class="header">
+        <a class="name" href="{{ site.Home.RelPermalink }}">charlietap</a>
+        <nav aria-label="main">
+          <a href="{{ site.Home.RelPermalink }}" {{ if or .IsHome (eq .Section "posts") }}aria-current="page"{{ end }}>writing</a>
+          <a href="{{ "about/" | relURL }}" {{ if eq .RelPermalink "/about/" }}aria-current="page"{{ end }}>about</a>
+        </nav>
+      </header>
+      <main id="main">{{ block "main" . }}{{ end }}</main>
+      <footer>
+        <span>charlietap</span>
+        <div><a href="{{ site.Params.github }}">github</a><a href="{{ "index.xml" | relURL }}">rss</a></div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+name: check
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: check-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: setup
+        uses: ./.github/actions/setup
+      - name: check publication dates
+        run: python -m unittest discover -s scripts -p 'test_*.py'
+      - name: prepare articles
+        run: python scripts/prepare_posts.py
+      - name: build
+        run: hugo --gc --minify --cleanDestinationDir --panicOnWarning
+      - name: check site
+        run: python scripts/check_site.py
