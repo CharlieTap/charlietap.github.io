@@ -12,8 +12,10 @@ content:
     view:
       primary: title
       fields: [title, draft, date]
-      sort: date
-      order: desc
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
     fields:
       - name: title
         label: title
