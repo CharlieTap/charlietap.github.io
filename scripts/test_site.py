@@ -23,7 +23,7 @@ class SiteTests(unittest.TestCase):
             posts = root / "content/posts"
             posts.mkdir(parents=True)
             post = posts / "stable-address.md"
-            post.write_text("---\ntitle: original title\ndraft: false\n---\n\nhello **world**.\n")
+            post.write_text("---\ntitle: Learning Kotlin and WebAssembly\ndraft: false\n---\n\nHello **world**.\n")
             prepare_posts(posts, datetime(2026, 1, 2, 12, tzinfo=timezone.utc))
             first = post.read_text()
 
@@ -36,14 +36,16 @@ class SiteTests(unittest.TestCase):
             page = root / "public/writing/stable-address/index.html"
             self.assertTrue(page.exists())
             self.assertIn("2026-01-02", page.read_text())
-            self.assertIn("hello <strong>world</strong>", feed.findtext("./channel/item/description"))
+            self.assertIn("Learning Kotlin and WebAssembly", page.read_text())
+            self.assertEqual(feed.findtext("./channel/item/title"), "Learning Kotlin and WebAssembly")
+            self.assertIn("Hello <strong>world</strong>", feed.findtext("./channel/item/description"))
             self.assertEqual(feed.findtext("./channel/item/link"), "https://charlietap.github.io/writing/stable-address/")
 
-            post.write_text(first.replace("original title", "updated title"))
+            post.write_text(first.replace("Learning Kotlin and WebAssembly", "More lessons from WebAssembly"))
             self.assertEqual(prepare_posts(posts), [])
             build()
             self.assertTrue(page.exists(), "editing the title must not change the url")
-            self.assertIn("updated title", page.read_text())
+            self.assertIn("More lessons from WebAssembly", page.read_text())
             self.assertIn("date: 2026-01-02T12:00:00+00:00", post.read_text())
 
             post.write_text(post.read_text().replace("draft: false", "draft: true"))

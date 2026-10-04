@@ -63,8 +63,8 @@ class PublicationTests(unittest.TestCase):
             prepare_posts(self.directory, self.now)
         path.unlink()
         path = self.article()
-        path.write_text(path.read_text().replace("an article", "An Article"))
-        with self.assertRaisesRegex(ValueError, "lowercase title"):
+        path.write_text(path.read_text().replace("an article", "   "))
+        with self.assertRaisesRegex(ValueError, "non-empty title"):
             prepare_posts(self.directory, self.now)
 
 

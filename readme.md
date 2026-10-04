@@ -8,7 +8,7 @@ the site uses hugo, a small custom layout, and github pages. it has no browser j
 
 1. open [pages cms](https://app.pagescms.org), sign in with github, and install its github app for this repository only.
 2. select `charlietap.github.io`, the `main` branch, and `posts`.
-3. create an article, give it a lowercase title, and write in the visual editor. new articles start as drafts.
+3. create an article, give it a title, and write in the visual editor. new articles start as drafts. titles and articles can use normal capitalisation; filenames and urls stay lowercase.
 4. save with `draft` switched on while you work. to publish, switch `draft` off and save.
 5. the [publish workflow](https://github.com/charlietap/charlietap.github.io/actions/workflows/publish.yml) builds and deploys the site. allow a minute or two for the change to appear.
 

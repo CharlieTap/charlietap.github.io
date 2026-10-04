@@ -24,8 +24,8 @@ def prepare_posts(directory: Path, now: datetime | None = None) -> list[Path]:
         if not isinstance(metadata, dict):
             raise ValueError(f"{path}: front matter must be a mapping")
         title = metadata.get("title")
-        if not isinstance(title, str) or not title.strip() or title != title.lower():
-            raise ValueError(f"{path}: a lowercase title is required")
+        if not isinstance(title, str) or not title.strip():
+            raise ValueError(f"{path}: a non-empty title is required")
         if type(metadata.get("draft")) is not bool:
             raise ValueError(f"{path}: set draft explicitly to true or false")
         if "slug" in metadata and not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", str(metadata["slug"])):

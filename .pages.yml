@@ -21,9 +21,6 @@ content:
         label: title
         type: string
         required: true
-        pattern:
-          regex: '^[^A-Z]+$'
-          message: use lowercase for the title.
       - name: draft
         label: draft
         type: boolean
