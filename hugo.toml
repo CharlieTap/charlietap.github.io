@@ -8,7 +8,7 @@ enablegitinfo = false
 disablekinds = ['taxonomy', 'term']
 
 [params]
-description = 'notes on software, runtimes, and the things i learn while building them.'
+description = 'thoughts and lessons learned in software, life and business'
 github = 'https://github.com/charlietap'
 
 [permalinks.page]
