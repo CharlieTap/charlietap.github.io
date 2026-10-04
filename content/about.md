@@ -1,8 +1,4 @@
 ---
 title: about
 ---
-i build software and write about what i learn along the way.
-
-this is a place for technical notes and longer thoughts about the things i'm building.
-
-you can find my projects on [github](https://github.com/charlietap).
+I’m Charlie, a London-based software engineer at Monzo. I’ve been building software for well over a decade. I love to learn, travel and work hard.
